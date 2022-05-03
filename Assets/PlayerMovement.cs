@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     private float Move;
     public Animator animator; 
+    private bool facingRight = true;
 
     public float jump;
     public bool jumping;
@@ -30,6 +31,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && !jumping) {
             rb.AddForce(new Vector2(rb.velocity.x, jump));
         }
+
+        // Check to see if the sprite's direction of movement and orientation are opposite.
+        // If they are, then flip the orientation of the sprite.
+        if (Move > 0 && !facingRight) {
+            Flip();
+        } else if (Move < 0 && facingRight) {
+            Flip();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -42,5 +51,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Floor")) {
             jumping = true;
         }
+    }
+
+    // This function changes orientation of sprite by changing the sign of localScale.x
+    private void Flip() {
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+        facingRight = !facingRight;
     }
 }
