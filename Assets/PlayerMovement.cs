@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed;
     private float Move;
+    public Animator animator; 
 
     public float jump;
     public bool jumping;
@@ -23,7 +24,9 @@ public class PlayerMovement : MonoBehaviour
         Move = Input.GetAxis("Horizontal");
 
         rb.velocity = new Vector2(speed * Move, rb.velocity.y);
+        animator.SetFloat("Speed", Mathf.Abs(speed * Move));
 
+        // If trying to jump and not already in the air
         if (Input.GetButtonDown("Jump") && !jumping) {
             rb.AddForce(new Vector2(rb.velocity.x, jump));
         }
