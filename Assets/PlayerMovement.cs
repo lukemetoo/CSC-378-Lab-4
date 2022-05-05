@@ -10,13 +10,17 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
 
     public float jump;
-    public bool jumping;
+    public bool jumping; 
+
+    public GameObject FallBox;
+    private Vector2 startPoint;
 
     private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        startPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -39,11 +43,17 @@ public class PlayerMovement : MonoBehaviour
         } else if (Move < 0 && facingRight) {
             Flip();
         }
+
+        // Move fallBox with player movement
+        FallBox.transform.position = new Vector2(transform.position.x, FallBox.transform.position.y);
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.CompareTag("Floor")) {
             jumping = false; 
+        }
+        if (other.gameObject.CompareTag("FallBox")) {
+            transform.position = startPoint;
         }
     }
 

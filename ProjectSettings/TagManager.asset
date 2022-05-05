@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - SpikeBall
+  - FallBox
   layers:
   - Default
   - TransparentFX
