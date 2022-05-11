@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FinishLine : MonoBehaviour
+public class Overview : MonoBehaviour
 {
+
+    public string newGameScene;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +19,7 @@ public class FinishLine : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Player")) {
-            SceneManager.LoadScene("VictoryScreen");
-        }
+    public void Main_Menu() {
+        SceneManager.LoadScene(newGameScene);
     }
 }
